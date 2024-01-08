@@ -6,7 +6,7 @@ Portfolio Projects
 
 (1)Airline passenger satisfaction analysis
 
-Description:The goal is to utilize data analysis to check what are the factors that highly correlate to a satisfied or dissatisfied passengers.How can we enhance customer satisfaction and improve the overall performance of the airline. 
+Description:The goal is to utilize data analysis to check what are the factors that highly correlate to a satisfied or dissatisfied passengers.And how we can enhance customer satisfaction and improve the overall performance of the airline. 
 The datasets used in this project are from Kaggle.(https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction)
 I have combined both tables the Airline_test and Airline_train into one single table by name Airline_passengerdata using excel. 
 
