@@ -10,7 +10,7 @@ from PortfolioProject.covidvaccinations
 order by 3,4 ;
 
 
--- (1) Selecting data to work workig with 
+-- (1) Selecting data to work work with 
 
 select 
 location,
