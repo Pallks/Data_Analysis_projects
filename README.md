@@ -20,4 +20,4 @@ The dataset used in this project is from kaggle.(https://www.kaggle.com/datasets
 
 Description:We are analysing the factors that contributed to the deaths in different parts of the world based on region,gender,time etc.
 And also analysing if vaccinations made it any better to curb the death numbers and the infection rate.
-The datasets used for the analysis is obtained from https://ourworldindata.org/covid-deaths.I have split the covid-deaths table into 2 tables as coviddeaths and covidvaccinations tables for analysis.
+The datasets used for the analysis is obtained from https://ourworldindata.org/covid-deaths. I have split the covid-deaths table into 2 tables as coviddeaths and covidvaccinations tables for analysis.
