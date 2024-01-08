@@ -1,5 +1,3 @@
-/* GITHUB FILE */
-
 /* MUSIC STORE DATA ANALYSIS */
 
 
@@ -31,7 +29,7 @@ limit 3;
  
  
 -- (4) Which city has best customers? 
---     The city that makes most money will have music festival.Find the city with higest sum of invoice total
+--     If the city that makes most money will have music festival then find that city with highest sum of invoice total
 --     Return both city name and sum of all invoices
  
 select 
@@ -58,7 +56,7 @@ order by total_invoice desc;
 
 
 -- (6) Write query to return the email,first name,last name,& Genre of all Rock Music listeners. 
---     Return list ordered asc by email starting with a.
+--     Return list ordered asc by email 
 
 select 
 distinct(c.email),
@@ -91,13 +89,13 @@ on i.invoice_id=l.invoice_id
 where track_id in(
                 select track_id from track
                  join genre g
-				 on track.genre_id=g.genre_id
-				where g.name like 'Rock'
+		on track.genre_id=g.genre_id
+	        where g.name like 'Rock'
                 )
 order by c.email asc;
 
 
--- (7) Invite artists with the most rock music in the dataset
+-- (7) Invite artists with the most number of rock music albums in the dataset
 --     Show artist name and total track count of top 10 rock bands
 
 Select
@@ -224,7 +222,6 @@ where sales_per_country.purchases_per_genre = max_genre_per_country.max_genre_nu
 -- (11)  Write a query that determines the customer that has spent the most on music from each country
 --       Write a query that returns the country along with the top customer and how much they spent
 --       For countries where the top amount spent is shared, provide all customers who spent this amount
-
 
 with recursive
              customer_with_country as (
