@@ -1,54 +1,4 @@
-/* github file */
-
 /* AIRLINE PASSENGER SATISFACTION ANALYSIS */
-
-/* We are analysing coustomer satisfaction based on factors/attributes  */
- 
--- Class
--- online booking
--- online boading
--- seating comfort
--- inflight service
--- baggage handling
--- leg room space
--- cleanliness
--- departure  delays
--- arival delays
-
-
--- (1) Total number of entries in each table 
-
-select count(*) from airline_test;
-
-select count(*) from airline_train;
-
-
--- (2) Percentage of satisfaction and dissatisfaction 
-
-select 
-satisfaction,
-count(*) 
-from airline_test
-group by satisfaction;
-
-select 
-satisfaction,
-count(*) 
-from airline_train
-group by satisfaction;
-
-
--- (3) Joining test and train dataset 
-
-select * from airline_test
-union all 
-select * from airline_train;
-
-
-/* OR COMBINE BOTH TABLES TEST AND TRAIN INTO AIRLINE_PASSEGERDATA TABLE IN EXCEL */
-
-
-Select * from airline_passengerdata;
 
 
 -- (1) CHECKING FOR SATISFACTION COUNT AMONG PASSENGERS
@@ -140,8 +90,6 @@ case
 	when age between 46 and 60 then 'old'
 	else 'senior citizen'
 	end as age_group,
-    -- from airline_passengerdata
-    -- group by age_group
 count(case when satisfaction='satisfied' then 1 end)*100/count(*) as percentage_satisfied, 
 count(case when satisfaction='neutral or dissatisfied' then 1 end)*100/count(*) as percentage_dissatisfied
 from airline_passengerdata
