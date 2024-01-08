@@ -1,58 +1,23 @@
--- github file--
-
 /*    MOBILE APP STORE ANALYSIS :APPLE IOS APP STORE ANALYSIS   */
 
 
-
--- 2 Tables used for analysis--
--- AppleStore.csv-- 
--- AppleStore_description.csv--
-
-
--- Column districription for Applestore.csv table:
--- (1)ID: App ID
--- (2)track_name: App Name
--- (3) size_bytes: Size in Bytes
--- (4)currency: Currency Type
--- (5)price: Price Amount
--- (6)rating_count_tot: count of User Rating  (all versions)
--- (7)rating_count_ver:count of User Rating (current version)
--- (8)user_rating: Average User Rating (all versions)
--- (9)user_rating_ver: Average User Rating (current version)
--- (10) ver: Latest Version Code
--- (11) cont_rating: Content Rating
--- (12) prime_genre: Primary Genre
--- (13)sup_devices_num: Number of Supporting Devices
--- (14)ipadSc_urls_num: Number of Displayed Screenshots
--- (15)lang_num: Number of Supported Languages
--- (16)vpp_lic: Vpp Device Based Licensing Enabled
-
-
--- Column discription for AppleStore_description.csv:
--- (1)ID: App ID
--- (2)track_name: Application name
--- (3)size_bytes: Memory Size in Bytes
--- (4)app_desc: Application Description
-
+-- 2 Tables used for analysis
+-- AppleStore.csv 
+-- AppleStore_description.csv
 
 
 /* EXPLORATORY DATA ANALYSIS (EDA) */
 
-
-
 -- (1) Check for number of unique apps in both tables 
-
 
 select count(distinct(id)) as unique_id
 from applestore;
 
 select count(distinct(id)) as unique_id
 from applestore_description;
- 
- 
- 
- -- (2) Check for missing values in key fields in both tables
- 
+
+
+  -- (2) Check for missing values in key fields in both tables
  
  select 
  count(*) as missing_values
@@ -73,8 +38,7 @@ from applestore_description;
  
  
 -- (3)Finding the popular genres/APP categories on IOS
--- Find number of Apps per genre(overview of types of distribution )  
-
+-- Find number of Apps per genre/overview of types of distribution   
 
 select 
 prime_genre,
@@ -84,9 +48,7 @@ group by  prime_genre
 order by popular_genres desc;
 
 
-
 -- (4) Overview of  user app rating 
-
 
 select 
 Round(avg(user_rating),2) as avg_rating,
@@ -95,8 +57,7 @@ min(user_rating) as min_rating
 from applestore;
 
 
-
--- (5) Find the distribution of app prices within each genre?--
+-- (5) Find the distribution of app prices within each genre?
 
 select 
 prime_genre,
@@ -108,10 +69,7 @@ group by prime_genre
 order by 2 desc;
 
 
-
 /*FINDING THE INSIGHTS FROM THE DATASET  */
-
-
 
 -- (1) What are the most popular app categories
 
@@ -120,13 +78,10 @@ prime_genre,
 Round(avg(rating_count_tot),2) as avg_rating_count
 from applestore
 group by prime_genre
-order by 2 desc
+order by 2 desc;
  
-
-
--- (2)Which apps dominate more, are they based on genres,free or paid subscription
--- Are there certain genres where paid apps are more common or where free apps dominate?
-
+-- (2)Which apps dominate more,are they based on genres,free or paid subscription
+-- Are there certain genres where paid apps are more common or free apps dominate?
 
 select 
 prime_genre,
@@ -134,12 +89,10 @@ sum(case when price = 0 then 1 else 0 end) as num_free_apps,
 sum(case when price > 0 then 1 else 0 end) as num_paid_apps
 from applestore
 group by prime_genre
-order by 2 desc
+order by 2 desc;
 
 
-
--- (3)Determine if paid apps have higher rating than free apps--
-
+-- (3)Determine if paid apps have higher rating than free apps
 
 select 
 case 
@@ -149,8 +102,7 @@ case
 Round(avg(user_rating),2) as avg_rating
 from applestore
 group by App_type
-order by avg_rating desc
-
+order by avg_rating desc;
 
 
 -- (4) Check if apps with more supported languages have higher rating--
@@ -171,6 +123,7 @@ from(select
 group by num_supported_lang 
 order by avg_user_rating desc;
 
+
 -- Other way of writing the above query
 
 select 
@@ -182,12 +135,10 @@ case
      end as num_supported_lang
 from applestore
 group by num_supported_lang
-order by 1 desc
-
+order by 1 desc;
 
 
 -- (5) How does the average user rating of mobile apps vary across different genres?
-   
    
 select 
 prime_genre,
@@ -197,7 +148,7 @@ group by prime_genre
 order by avg_user_rating desc;
    
    
--- (5a)check genres with low rating--
+-- (5a)check genres with low rating
 
 select 
 prime_genre,
@@ -207,9 +158,7 @@ group by prime_genre
 order by avg_user_rating 
 limit 10;
 
-
-
--- (6) what are the different app description length range --
+-- (6) what are the different app description length range
  
 select 
   case
@@ -221,8 +170,7 @@ from applestore_description;
 
 
 -- (7) What is the average app description length for each genre, and does it vary significantly?
--- ( the result below is divided by 2.0 as “text” data is stored in a format that requires two bytes per character)
-
+--     result below is divided by 2.0 as “text” data is stored in a format that requires two bytes per character
 
 select 
 a.prime_genre as genre, 
@@ -234,9 +182,7 @@ group by prime_genre
 order by 2 desc;
  
  
- 
--- (8)what is the corelation between the length  of the app description and the user rating--
-
+ -- (8)what is the corelation between the length  of the app description and the user rating
 
 select 
 app_desc_bracket,
@@ -273,8 +219,7 @@ group by app_desc_bracket
 order by avg_user_rating desc; 
 
 
-
--- (9)check top rated apps for each category--
+-- (9)check top rated apps for each category
 
 select 
 prime_genre,
@@ -290,9 +235,7 @@ from ( select
        where a.ranking=1;
 
 
-
 -- (10)Do apps with more screenshots tend to have higher user ratings? 
-
 
 select
 Round(avg(user_rating),2)as avg_user_rating,
@@ -300,7 +243,6 @@ Round(avg(user_rating),2)as avg_user_rating,
 from applestore
 group by `ipadSc_urls.num`
 order by number_screenshots desc ;
-
 
 
 -- (11)Correlationship between the content rating of an app and its user rating?
@@ -314,7 +256,6 @@ group by cont_rating
 order by cont_rating; 
              
    
-   
 -- (12)Do apps with a higher number of supporting devices tend to have higher user ratings?
 
 select 
@@ -323,7 +264,6 @@ Round(avg(user_rating),2) as avg_user_rating
 from applestore
 group by `sup_devices.num`
 order by `sup_devices.num` desc;
-
 
 
 -- (13) Is there a correlation between the version code of an app and its user rating? Do more recent versions receive better ratings?
@@ -351,10 +291,9 @@ from ( select
              user_rating,
              row_number() over ( 
                                  partition by prime_genre 
-								 order by user_rating desc,rating_count_tot desc) as ranking
+				 order by user_rating desc,rating_count_tot desc) as ranking
              from applestore) as subquery
      where ranking <= 3 ;   
-     
      
      
 -- (15) What is the distribution of app count by genre?
@@ -375,7 +314,6 @@ FROM app_genre_dist
 ORDER BY 2 Desc, 3 Desc;
 
 
-
 -- (16) What is the total user rating count of apps by genre?
 
 select 
@@ -386,7 +324,6 @@ from applestore
 group by prime_genre;
 
 
-
 -- (17) What is the average user rating of apps across all categories and by genre?
 
 select 
@@ -395,7 +332,6 @@ Round(avg(user_rating),2) as avg_rating_user,
 Rank() over ( order by avg(user_rating)desc)
 from applestore
 group by prime_genre;
-
 
 
 -- (18) What is the content rating by count?
@@ -417,9 +353,7 @@ from cont_rating
 order by 2 desc,3 desc;
 
 
-
 -- (19) What is the most common content rating of apps by genre?
-
 
 with genre_content_rating as (
 select 
@@ -437,7 +371,6 @@ count_content_rating
 from genre_content_rating
 where ranking=1
 order by 1;
-
 
 
 -- (20) Similarly, what is the least common content rating of apps by genre?
@@ -460,7 +393,6 @@ where ranking=1
 order by 1;
 
 
-
 -- (21) What is the count and percentage of free and paid apps for all categories?
 
 with per_categories as (
@@ -476,7 +408,6 @@ paid_app_count,
 Concat(Round((free_app_count/total_count)*100,2),'%') as percent_free_app_count,
 Concat(Round((paid_app_count/total_count)*100,2),'%') as percent_paid_app_count
 from per_categories;
-
 
 
 -- (22) What is the proportion of free and paid apps by genre
@@ -499,7 +430,6 @@ Concat(Round((paid_app_count/total_count)*100,2),'%') as percent_paid_app_count
 from proprotion_genre;
 
 
-
 -- (23) What is the distribution of apps by price?
 
 with app_price as (
@@ -515,7 +445,6 @@ select
 price,
 concat(Round((app_price/total_price)*100,2),'%') as percent_app_price
 from app_price;
-
 
 
 -- (24a) What is the most common app price by genre?
@@ -556,7 +485,6 @@ from app_price
 where ranking=1;
 
 
-
 -- (25) Which app is the most expensive and in what category?
 
 select 
@@ -564,7 +492,6 @@ prime_genre,
 price
 from applestore
 where price like (select max(price) from applestore);
-
 
 
 -- (26) Which app has the most and least size bytes? 
@@ -581,7 +508,9 @@ track_name,
 prime_genre,
 size_bytes
 from applestore
-where size_bytes=(select min(size_bytes) as minimum_size_bytes from applestore);
+where size_bytes=(select 
+	          min(size_bytes) as minimum_size_bytes 
+	          from applestore);
 
 
 
@@ -599,7 +528,6 @@ track_name,
 price
 from app_price 
 where ranking between 1 and 10;
-
 
 
 -- (28) Among the top 10 most expensive apps, what is the genre count for the apps?
@@ -627,7 +555,7 @@ from top_genre
 group by 1
 order by 2  desc;
 
--- ---------------------------------------------------------------------------------------------------------------------------
+
 
 
 
