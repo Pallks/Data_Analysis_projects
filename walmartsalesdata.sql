@@ -1,6 +1,4 @@
-/* Github file */
-
-/* Walamart data Analysis */
+/* Walmart data Analysis */
 
 
 select * from walmartsalesdata;
@@ -26,6 +24,7 @@ ADD column time_of_day varchar(255);
 
 
 -- (1b) By default updates are not allowed in workbench so we set it to zero as below 
+
 SET SQL_SAFE_UPDATES=0;
 
 
@@ -42,7 +41,7 @@ end
 
 
 -- (2) Create new column day_name to see what day in a week is the busiest in each branch 
---     First convert the date format mm/dd/yyyy to YYYY-MM-DD format and update the table then extrat the dayname 
+--     First convert the date format mm/dd/yyyy to YYYY-MM-DD format,update the table then extrat the dayname 
 
 select date from walmartsalesdata;
 
@@ -146,7 +145,7 @@ order by maxproduct desc;
  order by totalrevenue desc;
  
  
- -- (10) Which month has higest cogs
+ -- (10) Which month has highest cogs
  
  select 
  month_name,
@@ -156,7 +155,7 @@ order by maxproduct desc;
  order by maxcogs desc;
  
  
--- (11) Which productline has the higest revenue 
+-- (11) Which productline has the highest revenue 
 
 select 
 `product line`,
@@ -166,7 +165,7 @@ group by `product line`
 order by maxrevenue desc;
 
 
--- (12) City with higest revenue 
+-- (12) City with highest revenue 
 
 select 
 city,
@@ -177,7 +176,7 @@ group by city,branch
 order by cityrevenue desc;
 
 
- -- (13) Product line with higest tax% 
+ -- (13) Product line with highest tax% 
  
 select 
 `product line`,
