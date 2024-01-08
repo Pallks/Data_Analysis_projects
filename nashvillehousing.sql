@@ -1,12 +1,10 @@
--- github file--
-
 /* NASHVILLE HOUSING DATA ANALYSIS/*
 
 
 /* Cleaning data using SQL quiries */
 
 
-select * from PortfolioProject.nashvillehousin;
+select * from PortfolioProject.nashvillehousing;
 
 
 -- Populating property address column
@@ -40,11 +38,10 @@ join PortfolioProject.nashvillehousing b
 on a.parcelid=b.parcelid
 and a.uniqueid <> b.uniqueid 
 where a.propertyaddress is null;
--- <> is not= function--
 
 
 -- (3)Using ifnull to populate/ISNULL: simply checks if a value is null or not and IFNULL acts like COALESCE 
--- and will return the 2nd value if the first value is null --
+--    and will return the 2nd value if the first value is null 
 
 select a.parcelid,
 a.propertyaddress,
@@ -58,7 +55,6 @@ and a.uniqueid <> b.uniqueid
 where a.propertyaddress is null;
 
 
-
 -- (4)Using update func to populate the null rows in propertyaddress column
 
 update a
@@ -70,30 +66,20 @@ and a.uniqueid <> b.uniqueid
 where a.propertyaddress is null;
 
 
-
 -- (5)Splitting property adress into indivisual columns of address,city,state 
--- Select propertyaddress from PortfolioProject.nashvillehousing --
+--    Select propertyaddress from PortfolioProject.nashvillehousing 
 
 select 
 SUBSTRING_index(propertyaddress,',',1 ) as address,     
 SUBSTRING_index(propertyaddress,',',-1 ) as address 
 from PortfolioProject.nashvillehousing ;
 
--- +1  will return  everything towards the left of delimeter 'comma' in this string 
--- that occurs for first time in the given string or address  in this case
--- -1 will return  everything towards the right of  delimeter 'comma' in this string 
--- that occurs for first time in the given string  or address  in this case
-
 
 
 -- (6) creating columns to add the new split adress and split city columns
--- if u get error  when u run update query then  disable safe update mode temperorily by below command
--- to enable safe update mode use command below
--- SET SQL_SAFE_UPDATES=1;
+
 
 SET SQL_SAFE_UPDATES=0;
-
-
 
 Alter table nashvillehousing
 add propertysplitaddress varchar(255);
@@ -110,25 +96,20 @@ set propertysplitcity=SUBSTRING_index(propertyaddress,',',-1 );
 select * from PortfolioProject.nashvillehousing;
  
  
- 
--- (7) Splitting the owneraddress column using the same substring_index or using 'Parsename'
+ -- (7) Splitting the owneraddress column using the same substring_index or using 'Parsename'
  
  select * from PortfolioProject.nashvillehousing;
 
-select owneraddress  from PortfolioProject.nashvillehousing;
+select 
+owneraddress  
+from PortfolioProject.nashvillehousing;
 
-select owneraddress,
-SUBSTRING_index(owneraddress,',',1 ) as address1, 
--- SUBSTRING_index(owneraddress,',',2)    
+select 
+owneraddress,
+SUBSTRING_index(owneraddress,',',1 ) as address1,  
 substring_index((SUBSTRING_index(owneraddress,',',2)),',',-1) as address2,
 SUBSTRING_index(owneraddress,',',-1 ) as address3
 from PortfolioProject.nashvillehousing;
-
-
-
-/* dont have to use set sql safe update command everytime but just in case for safe side */
-SET SQL_SAFE_UPDATES=0;
-
 
 
 -- (8) Add new columns and update the new values into it 
@@ -153,7 +134,7 @@ Set ownersplitstate=SUBSTRING_index(owneraddress,',',-1 ) ;
 select * from PortfolioProject.nashvillehousing
 
  
--- (9)Changing Y as yes and N as no in Soldasvacant column */
+-- (9)Changing Y as yes and N as no in Soldasvacant column 
  
 -- (a)first checking distinct values of soldasvacant column and counting them
  
@@ -186,7 +167,7 @@ select * from PortfolioProject.nashvillehousing
  
 -- (d)now check and make sure the above is updated 
 
- select * from PortfolioProject.nashvillehousing
+ select * from PortfolioProject.nashvillehousing;
  
 
  
