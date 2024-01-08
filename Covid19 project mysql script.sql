@@ -1,5 +1,3 @@
-/* GITHUB FILE--
-
 /* COVID-19 DATA ANALYSIS */
 
 
@@ -12,7 +10,7 @@ from PortfolioProject.covidvaccinations
 order by 3,4 ;
 
 
--- (1) Selecting data that we are workig with 
+-- (1) Selecting data to work workig with 
 
 select 
 location,
@@ -38,7 +36,6 @@ order by 1,2 ;
 
 
 -- (3) Looking for particular location  being infected 
--- shows the likelyhood of dying if u get covid in particular country 
 
 select 
 location,
@@ -51,7 +48,8 @@ where location like '%states%'
 order by 1,2 ;
 
 
--- (4) Looking at total cases vs population or what perecentage of population are infected with covid 
+-- (4) Looking at total cases vs population 
+--     what perecentage of population are infected with covid 
 
 select 
 location,
@@ -74,8 +72,6 @@ max(total_cases/(population))*100 as highestinfectedpopulation
 from PortfolioProject.coviddeaths
 group by location,population
 order by highestinfectedpopulation desc; 
-
--- order by highestinfectedpopulation to get countries with higest infected population 
 
 
 -- (6) Looking at countries with highest death count per population
@@ -112,7 +108,7 @@ order by totaldeathcount desc;
 
 
 -- (9) Global numbers 
--- if u want to look at global numbers w.r.t each day i.e date 
+--  looking at global numbers w.r.t each day(date) 
 
 select 
 date,
@@ -126,7 +122,7 @@ group by date
 order by 1;
 
 
--- (10) If u want to look at global number in total and not per day/date 
+-- (10) looking at global number in total and not per day/date 
 
 select 
 sum(new_cases) as total_cases,
@@ -146,7 +142,6 @@ from PortfolioProject.covidvaccinations;
 
 
 -- (11)Joining both coviddeaths and covidvaccinations table 
---     using inner join or just join
 
 select * 
 from PortfolioProject.coviddeaths dea
@@ -171,9 +166,9 @@ where dea.continent is not null
 order by 2,3;
 
 
- -- (13)Doing the rolling count to find the new_vaccinations count to add up as numbers go up  w.r.t date
- --     Using this to partition by or breaking it by date and location 
- --     we are partitioning by location as we want new_vaccination count to start over everytime it gets to new location
+ -- (13)Doing the rolling count to find the new_vaccinations count to add up as numbers go up w.r.t date
+ --     Using this to partition by  date and location 
+ --     partitioning by location for new_vaccination count to start over everytime it gets to new location
  
  select 
  dea.continent,
@@ -189,12 +184,9 @@ order by 2,3;
  where dea.continent is not null
  order by 2,3;
  
- -- the above will partition only by location to sum the total new_vaccination by location only i.e new numbers will show up 
- -- only if the new location changes
  
- 
- -- (14) If the above  query has to rolling count everytime new numbers show up then we should order by both location and date
- --     we are partitioning by location as we want new_vaccination count to start over everytime it gets to new location
+ -- (14)For the above query  to rolling count everytime new numbers show up then we should order by both location and date
+ --     partitioning by location for new_vaccination count to start over everytime it gets to new location
  
 select 
 dea.continent,
@@ -211,10 +203,8 @@ where dea.continent is not null
 order by 2,3;
  
  
- -- (15) look at total rollingcountpeoplevaccinated w.r.t polupation.We cant directly use the column rollingpeople vaccinated 
- --      which is just created for calculation.So we create CTE(common table expression)/ Temp table 
+ -- (15) look at total rollingcountpeoplevaccinated w.r.t polupation.
  --      Using CTE here
- --      popvsvac is populationnvs vaccination and all columns in cte should be same as the below columns in select statement
  
  with popvsvac (continent,location,date,population,new_vaccinations,rollingpeoplevaccinated) 
  as 
@@ -237,7 +227,6 @@ select * from popvsvac;
 
 
 -- (16) Now we hv the cte table as above.lets do rollingpeoplevac w.r.t population
---      popvsvac is population vs vaccination and all columns in CTE should be same as the below columns in select statement
 
 with popvsvac (continent,location,date,population,new_vaccinations,rollingpeoplevaccinated) 
 as 
@@ -310,7 +299,7 @@ where dea.continent is not null
 order by 2,3;
  
  
--- (19) Quirying the view created above */
+-- (19) Quirying the view created above 
  
  select * from percentpopulationvaccinated ;
  
