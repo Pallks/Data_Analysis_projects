@@ -4,7 +4,7 @@ This Repository will hold all of the code and queries for my Data analysis proje
 
 Portfolio Projects
 
-(1)Airline passenger satisfaction analysis
+(1)Airline passenger satisfaction Analysis
 
 Description:The goal is to utilize data analysis to check what are the factors that highly correlate to a satisfied or dissatisfied passengers.And how we can enhance customer satisfaction and improve the overall performance of the airline. 
 The datasets used in this project are from Kaggle (https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction).
